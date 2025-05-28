@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import Swal from 'sweetalert2';
+import React, { useState } from 'react';
+import Swal from "sweetalert2"; // <-- Add this import
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ export default function Login() {
         icon: "success"
       });
     } else {
-       Swal.fire({
+      Swal.fire({
         title: "Invalid",
         text: "Login is invalid",
         icon: "error"
@@ -62,4 +62,4 @@ export default function Login() {
       </form>
     </div>
   )
-}   
+}

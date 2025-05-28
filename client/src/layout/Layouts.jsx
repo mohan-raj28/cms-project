@@ -1,6 +1,5 @@
 import { Link, Outlet } from "react-router";
-
-function BasicLayouts() {
+function Layouts() {
     return (
         <>
             <header className="bg-gradient-to-r from-teal-600 via-indigo-700 to-indigo-900 text-white shadow-lg py-4 flex flex-col sm:flex-row items-center justify-between px-6">
@@ -20,9 +19,14 @@ function BasicLayouts() {
                         sign-in
                     </Link>
                     <Link
-                        to="/sign-up"
+                        to="/signup"
                         className="bg-transparent text-indigo-100 px-5 py-2 rounded-full border border-indigo-200 shadow font-semibold transition-all duration-150 hover:bg-indigo-100 hover:text-indigo-900">
                         sign-up
+                    </Link>
+                    <Link
+                        to="/about"
+                        className="bg-transparent text-indigo-100 px-5 py-2 rounded-full border border-indigo-200 shadow font-semibold transition-all duration-150 hover:bg-indigo-100 hover:text-indigo-900">
+                        About
                     </Link>
                 </div>
             </header>
@@ -33,4 +37,4 @@ function BasicLayouts() {
     );
 }
 
-export default BasicLayouts;
+export default Layouts;
