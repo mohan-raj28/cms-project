@@ -14,15 +14,12 @@ export default function Login() {
   }
 
   return (
-    <section
-      className="fixed inset-0 w-screen h-screen min-h-screen grid grid-cols-1 md:grid-cols-2 bg-cover bg-center overflow-hidden"
-      style={{ backgroundImage: "url('/lgbg1.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', imageRendering: 'auto' }}
-    >
+    <section className="fixed inset-0 flex items-center justify-center bg-white">
       <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="relative z-10 w-full max-w-md px-6 col-span-1 flex items-center justify-center md:justify-start md:pl-16"
+        className="relative z-10 w-full max-w-md px-6"
       >
         <form
           onSubmit={handleSubmit}
@@ -80,8 +77,6 @@ export default function Login() {
           </motion.button>
         </form>
       </motion.div>
-      {/* Optionally, add an empty div for the right side to keep layout */}
-      <div className="hidden md:block col-span-1" />
     </section>
   );
 }
