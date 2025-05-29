@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router";
-function Layouts() {
+function BasicLayouts() {
     return (
         <>
             <header className="bg-gradient-to-r from-teal-600 via-indigo-700 to-indigo-900 text-white shadow-lg py-4 flex flex-col sm:flex-row items-center justify-between px-6">
@@ -37,4 +37,4 @@ function Layouts() {
     );
 }
 
-export default Layouts;
+export default BasicLayouts;
