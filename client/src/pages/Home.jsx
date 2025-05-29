@@ -23,12 +23,20 @@ export default function Home() {
           simply curious about where your money goes, our app provides the tools
           to help you stay on track and make informed financial decisions.
         </p>
-        <Link
-          to="/login"
-          className="bg-teal-600 hover:bg-teal-700 text-white text-base font-medium py-2 px-5 rounded-xl shadow-sm transition duration-300 w-max"
-        >
-          Get Started
-        </Link>
+        <div className="flex gap-4">
+          <Link
+            to="/login"
+            className="bg-teal-600 hover:bg-teal-700 text-white text-base font-medium py-2 px-5 rounded-xl shadow-sm transition duration-300 w-max"
+          >
+            Get Started
+          </Link>
+          <Link
+            to="/About"
+            className="bg-teal-600 hover:bg-teal-700 text-white text-base font-medium py-2 px-5 rounded-xl shadow-sm transition duration-300 w-max"
+          >
+            Learn More
+          </Link>
+        </div>
       </div>
       {/* Right Section - Illustration */}
       <div className="flex items-center justify-center p-8 bg-white/70 z-10 min-h-screen">
