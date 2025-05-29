@@ -16,12 +16,12 @@ class StorageService {
         return { ...this.db };
     }
 
-    // Get a value by key
+    // Get a value by key (e.g., "expenses")
     getItem(itemKey) {
-        return this.db[itemKey];
+        return this.db[itemKey] || [];
     }
 
-    // Set a value by key
+    // Set a value by key (e.g., "expenses", expensesArray)
     setItem(itemKey, value) {
         this.db[itemKey] = value;
         this._save();
