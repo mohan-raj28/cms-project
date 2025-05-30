@@ -41,7 +41,10 @@ export default function DashboardLayouts() {
                     ))}
                 </nav>
                 <button
-                    onClick={logout}
+                    onClick={() => {
+                        localStorage.removeItem("currentUser");
+                        logout();
+                    }}
                     className="mt-auto w-full py-2 px-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-medium shadow-md transition duration-300 hover:scale-[1.03] flex items-center justify-center gap-2"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

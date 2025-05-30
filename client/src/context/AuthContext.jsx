@@ -12,6 +12,7 @@ function AuthProvider({ children }) {
 	function login(email, password) {
 		try {
 			userService.authenticate(email, password);
+			localStorage.setItem("currentUser", email);
 			setIsAuth(true);
 			navigate('/dashboard/intro');
 			Swal.fire({
@@ -27,17 +28,21 @@ function AuthProvider({ children }) {
 			});
 		}
 	}
+
 	function logout() {
 		setIsAuth(false);
+		localStorage.removeItem("currentUser");
 		Swal.fire({
 			title: "Success",
 			text: "Logout successful",
 			icon: "success"
 		});
 	}
+
 	function register(email, password) {
 		try {
 			userService.addUser(email, password);
+			localStorage.setItem("currentUser", email);
 			setIsAuth(true);
 			navigate('/dashboard/intro');
 			Swal.fire({

@@ -18,7 +18,6 @@ class UserService {
       throw new Error("user already exists");
     }
     this.db.users.push({ email, password });
-    localStorage.removeItem("db");
     localStorage.setItem("db", JSON.stringify(this.db));
   }
   isUserExists(email) {
@@ -44,7 +43,6 @@ class UserService {
       }
       return obj;
     });
-    localStorage.removeItem("db");
     localStorage.setItem("db", JSON.stringify(this.db));
   }
 
@@ -58,7 +56,6 @@ class UserService {
       }
       return obj;
     });
-    localStorage.removeItem("db");
     localStorage.setItem("db", JSON.stringify(this.db));
   }
 }
