@@ -16,20 +16,28 @@ class StorageService {
         return { ...this.db };
     }
 
-    // Get a value by key (e.g., "expenses")
+    // Get a value by key (e.g., "expenses") for the current user
     getItem(itemKey) {
-        return this.db[itemKey] || [];
+        const userId = localStorage.getItem("currentUser");
+        if (!userId) return [];
+        if (!this.db[userId]) return [];
+        return this.db[userId][itemKey] || [];
     }
 
-    // Set a value by key (e.g., "expenses", expensesArray)
+    // Set a value by key (e.g., "expenses", expensesArray) for the current user
     setItem(itemKey, value) {
-        this.db[itemKey] = value;
+        const userId = localStorage.getItem("currentUser");
+        if (!userId) return;
+        if (!this.db[userId]) this.db[userId] = {};
+        this.db[userId][itemKey] = value;
         this._save();
     }
 
-    // Remove a value by key
+    // Remove a value by key for the current user
     removeItem(itemKey) {
-        delete this.db[itemKey];
+        const userId = localStorage.getItem("currentUser");
+        if (!userId || !this.db[userId]) return;
+        delete this.db[userId][itemKey];
         this._save();
     }
 

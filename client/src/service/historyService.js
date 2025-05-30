@@ -27,7 +27,7 @@ class HistoryService {
     }
 
     getAllHistory() {
-        return this.db.history;
+        return [...this.db.history];
     }
 
     clearUserHistory(email) {
