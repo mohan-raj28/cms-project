@@ -9,6 +9,9 @@ import DashboardLayouts from "../layouts/DashboardLayouts";
 import Expenses from "../pages/dashboard/Expenses";
 import Profile from "../pages/dashboard/Profile";
 import Intro from "../pages/dashboard/Intro";
+import Display from "../pages/dashboard/Display";
+import Analysis from "../pages/dashboard/Analysis";
+
 
 export default function AppRoutes() {
   return (
