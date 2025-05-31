@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router";
 import AuthContext from "../context/AuthContext";
 
@@ -23,10 +23,14 @@ export default function DashboardLayouts() {
     const location = useLocation();
     const { logout } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
         <div className="flex min-h-screen bg-gradient-to-tr from-white to-blue-50 text-gray-800">
-            <aside className="p-6 w-64 sticky top-0 h-screen bg-white border-r border-gray-200 shadow-xl flex flex-col items-center">
+            {/* Mobile sidebar overlay */}
+            <div className={`fixed inset-0 z-40 bg-black/30 transition-opacity md:hidden ${sidebarOpen ? 'block' : 'hidden'}`} onClick={() => setSidebarOpen(false)} />
+            {/* Sidebar */}
+            <aside className={`fixed z-50 top-0 left-0 h-screen md:h-screen w-64 bg-white border-r border-gray-200 shadow-xl flex flex-col items-center p-6 transition-transform duration-300 md:static md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:w-64 md:flex md:p-6`}> 
                 <span className="text-2xl font-bold text-blue-700 mb-8 tracking-tight">My Dashboard</span>
                 <nav className="flex flex-col gap-2 w-full">
                     {PATHS.map((value, index) => (
@@ -38,6 +42,7 @@ export default function DashboardLayouts() {
                                 ${location.pathname === value.path
                                     ? "bg-blue-100 text-blue-700 font-semibold shadow-inner"
                                     : "hover:bg-blue-50 hover:text-blue-600 text-gray-600"}`}
+                            onClick={() => setSidebarOpen(false)}
                         >
                             {value.text}
                         </Link>
@@ -59,8 +64,29 @@ export default function DashboardLayouts() {
                     <span className="text-sm font-semibold tracking-wide">Logout</span>
                 </button>
             </aside>
-            <main className="flex-1 min-h-screen overflow-y-auto p-10 bg-gradient-to-br from-white via-blue-50 to-white">
-                <div className="rounded-xl shadow-lg bg-white bg-opacity-95 p-8 min-h-[80vh] border border-gray-100">
+            {/* Fixed dashboard icon on the left, only show when sidebar is closed and only on mobile */}
+            {!sidebarOpen && (
+                <button
+                    className="fixed z-50 top-4 left-4 focus:outline-none transition-transform duration-300 hover:scale-110 group bg-transparent border-none shadow-none p-0 flex items-center justify-center md:hidden"
+                    style={{ width: '40px', height: '40px' }}
+                    onClick={() => setSidebarOpen(true)}
+                    aria-label="Open dashboard sidebar"
+                >
+                    <svg
+                        className="h-7 w-7 text-blue-700 group-hover:text-blue-900 transition-colors duration-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                    >
+                        <line x1="5" y1="7" x2="19" y2="7" stroke="currentColor" strokeLinecap="round" />
+                        <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" strokeLinecap="round" />
+                        <line x1="5" y1="17" x2="19" y2="17" stroke="currentColor" strokeLinecap="round" />
+                    </svg>
+                </button>
+            )}
+            <main className="flex-1 min-h-screen overflow-y-auto p-2 md:p-10 bg-gradient-to-br from-white via-blue-50 to-white">
+                <div className="rounded-xl shadow-lg bg-white bg-opacity-95 p-2 md:p-8 min-h-[80vh] border border-gray-100">
                     <Outlet />
                 </div>
             </main>
