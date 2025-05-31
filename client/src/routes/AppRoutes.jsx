@@ -4,11 +4,13 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import About from "../pages/About";
-import Intro from "../pages/dashboard/intro";
 import BasicLayouts from "../layouts/BasicLayouts";
 import DashboardLayouts from "../layouts/DashboardLayouts";
 import Expenses from "../pages/dashboard/Expenses";
 import Profile from "../pages/dashboard/Profile";
+import Intro from "../pages/dashboard/Intro";
+import Display from "../pages/dashboard/Display";
+import Analysis from "../pages/dashboard/Analysis";
 
 export default function AppRoutes() {
   return (
@@ -29,6 +31,8 @@ export default function AppRoutes() {
         <Route path="/dashboard/intro" element={<Intro/>} />
         <Route path="/dashboard/expenses" element={<Expenses/>} />
         <Route path="/dashboard/profile" element={<Profile/>} />
+        <Route path="/dashboard/display" element={<Display/>} />
+        <Route path="/dashboard/analysis" element={<Analysis/>} />
       </Route>
     </Routes>
   )

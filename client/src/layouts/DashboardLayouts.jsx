@@ -3,9 +3,11 @@ import { Link, Outlet, useLocation } from "react-router";
 import AuthContext from "../context/AuthContext";
 
 const PATHS = [
-    { path: '/dashboard/intro', text: 'Intro' },
+    { path: '/dashboard/display', text: 'Expenses' },
+    { path: '/dashboard/analysis', text: 'Analysis' },
     { path: '/dashboard/expenses', text: 'Add Expenses' },
     { path: '/dashboard/profile', text: 'Profile' },
+    
 ];
 
 const STYLE = {
