@@ -3,13 +3,8 @@ import Swal from 'sweetalert2';
 import userService from '../../service/userService';
 
 export default function Profile() {
-	// For demo, get user email from localStorage (simulate current user)
-	// In real app, get from auth context or props
-	const [currentEmail, setCurrentEmail] = useState(() => {
-		const db = JSON.parse(localStorage.getItem('db'));
-		// Assume first user is current user for demo
-		return db?.users?.[0]?.email || '';
-	});
+	// Get current user email from localStorage (set on login)
+	const [currentEmail, setCurrentEmail] = useState(() => localStorage.getItem('currentUser') || '');
 	const [email, setEmail] = useState(currentEmail);
 	const [password, setPassword] = useState('');
 	const [editEmail, setEditEmail] = useState(false);
@@ -19,6 +14,7 @@ export default function Profile() {
 		try {
 			userService.editUserEmail(currentEmail, email);
 			setCurrentEmail(email);
+			localStorage.setItem('currentUser', email);
 			setEditEmail(false);
 			Swal.fire({ icon: 'success', title: 'Email updated!' });
 		} catch (err) {
