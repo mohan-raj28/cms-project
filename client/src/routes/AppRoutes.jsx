@@ -4,11 +4,11 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import About from "../pages/About";
-import Intro from "../pages/dashboard/intro";
 import BasicLayouts from "../layouts/BasicLayouts";
 import DashboardLayouts from "../layouts/DashboardLayouts";
 import Expenses from "../pages/dashboard/Expenses";
 import Profile from "../pages/dashboard/Profile";
+import Intro from "../pages/dashboard/Intro";
 
 export default function AppRoutes() {
   return (
