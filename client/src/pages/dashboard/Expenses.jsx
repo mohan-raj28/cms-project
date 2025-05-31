@@ -9,6 +9,10 @@ export default function Expenses() {
     date: ""
   });
 
+  const categories = [
+    "Food", "House", "Snacks", "Cosmetics", "Transport", "Utilities", "Groceries", "Health", "Education", "Entertainment", "Shopping", "Travel", "Bills", "Gifts", "Insurance", "Investment", "Kids", "Pets", "Personal Care", "Other"
+  ];
+
   // Load expenses from storage on mount
   useEffect(() => {
     const stored = storageService.getItem("expenses");
@@ -27,11 +31,13 @@ export default function Expenses() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!form.description || !form.amount || !form.date) return;
+    // Convert amount from rupees to number (assume input is rupees)
     setExpenses([
       ...expenses,
       {
         id: Date.now(),
-        ...form
+        ...form,
+        amount: parseFloat(form.amount) // store as rupees
       }
     ]);
     setForm({ description: "", amount: "", date: "" });
@@ -49,21 +55,24 @@ export default function Expenses() {
         Expense Tracker
       </h2>
       <form onSubmit={handleSubmit} className="relative z-10 flex flex-col md:flex-row gap-4 mb-8">
-        <input
-          type="text"
+        <select
           name="description"
           value={form.description}
           onChange={handleChange}
-          placeholder="Description"
           className="flex-1 px-4 py-2 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 bg-white/80 hover:border-pink-300 shadow-md"
           required
-        />
+        >
+          <option value="" disabled>Select Category</option>
+          {categories.map(cat => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
         <input
           type="number"
           name="amount"
           value={form.amount}
           onChange={handleChange}
-          placeholder="Amount"
+          placeholder="Amount (₹)"
           className="w-32 px-4 py-2 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all duration-200 bg-white/80 hover:border-yellow-300 shadow-md"
           min="0"
           step="0.01"
@@ -85,14 +94,14 @@ export default function Expenses() {
         </button>
       </form>
       <div className="relative z-10 mb-4 text-lg font-semibold text-gray-700 text-right">
-        Total: <span className="text-blue-600">${total.toFixed(2)}</span>
+        Total: <span className="text-blue-600">₹{total.toFixed(2)}</span>
       </div>
       <div className="relative z-10 overflow-x-auto">
         <table className="min-w-full bg-white/90 border-2 border-blue-200 rounded-2xl shadow-xl">
           <thead>
             <tr className="bg-gradient-to-r from-blue-100 via-pink-100 to-yellow-100">
-              <th className="py-3 px-4 border-b-2 border-blue-200 text-left font-bold text-blue-700 uppercase tracking-wider rounded-tl-2xl">Description</th>
-              <th className="py-3 px-4 border-b-2 border-blue-200 text-right font-bold text-pink-700 uppercase tracking-wider">Amount</th>
+              <th className="py-3 px-4 border-b-2 border-blue-200 text-left font-bold text-blue-700 uppercase tracking-wider rounded-tl-2xl">Category</th>
+              <th className="py-3 px-4 border-b-2 border-blue-200 text-right font-bold text-pink-700 uppercase tracking-wider">Amount (₹)</th>
               <th className="py-3 px-4 border-b-2 border-blue-200 text-center font-bold text-yellow-700 uppercase tracking-wider">Date</th>
               <th className="py-3 px-4 border-b-2 border-blue-200 text-center font-bold text-blue-700 uppercase tracking-wider rounded-tr-2xl">Action</th>
             </tr>
@@ -106,7 +115,7 @@ export default function Expenses() {
               expenses.map(exp => (
                 <tr key={exp.id} className="hover:bg-yellow-100/60 transition-colors duration-200 group">
                   <td className="py-3 px-4 border-b border-blue-100 text-left group-hover:text-blue-700 font-medium">{exp.description}</td>
-                  <td className="py-3 px-4 border-b border-blue-100 text-right group-hover:text-pink-700 font-semibold">${parseFloat(exp.amount).toFixed(2)}</td>
+                  <td className="py-3 px-4 border-b border-blue-100 text-right group-hover:text-pink-700 font-semibold">₹{parseFloat(exp.amount).toFixed(2)}</td>
                   <td className="py-3 px-4 border-b border-blue-100 text-center group-hover:text-yellow-700 font-medium">{exp.date}</td>
                   <td className="py-3 px-4 border-b border-blue-100 text-center">
                     <button

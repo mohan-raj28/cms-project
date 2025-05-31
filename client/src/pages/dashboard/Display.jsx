@@ -65,33 +65,46 @@ export default function Display() {
       <div className="mb-8">
         <h3 className="text-xl font-bold mb-2 text-blue-700">Summary</h3>
         <ul className="space-y-1 text-gray-700">
-          <li>Total Expenses: <span className="font-bold text-blue-600">${analysis.total.toFixed(2)}</span></li>
-          <li>Average Expense: <span className="font-bold text-pink-600">${analysis.average.toFixed(2)}</span></li>
-          <li>Largest Expense: <span className="font-bold text-yellow-600">{analysis.max ? `${analysis.max.description} ($${parseFloat(analysis.max.amount).toFixed(2)})` : '-'}</span></li>
-          <li>Smallest Expense: <span className="font-bold text-emerald-600">{analysis.min ? `${analysis.min.description} ($${parseFloat(analysis.min.amount).toFixed(2)})` : '-'}</span></li>
+          <li>Total Expenses: <span className="font-bold text-blue-600">₹{analysis.total.toFixed(2)}</span></li>
+          <li>Number of Transactions: <span className="font-bold text-pink-600">{expenses.length}</span></li>
+          <li>Average Expense: <span className="font-bold text-emerald-600">₹{expenses.length ? (analysis.total/expenses.length).toFixed(2) : '0.00'}</span></li>
+          <li>Most Recent Expense: <span className="font-bold text-yellow-600">{expenses.length ? `${expenses[expenses.length-1].description} (₹${parseFloat(expenses[expenses.length-1].amount).toFixed(2)}) on ${expenses[expenses.length-1].date}` : '-'}</span></li>
+          <li>Highest Single Expense: <span className="font-bold text-red-600">{analysis.max ? `${analysis.max.description} (₹${parseFloat(analysis.max.amount).toFixed(2)})` : '-'}</span></li>
+          <li>Lowest Single Expense: <span className="font-bold text-indigo-600">{analysis.min ? `${analysis.min.description} (₹${parseFloat(analysis.min.amount).toFixed(2)})` : '-'}</span></li>
         </ul>
       </div>
       <div className="mb-8">
         <h3 className="text-lg font-bold mb-2 text-blue-700">Expenses by Month</h3>
         <ul className="grid grid-cols-2 md:grid-cols-4 gap-2 text-gray-700">
           {Object.entries(analysis.byMonth).map(([month, amt]) => (
-            <li key={month} className="bg-blue-50 rounded-lg px-3 py-1 font-semibold">{month}: <span className="text-blue-600">${amt.toFixed(2)}</span></li>
+            <li key={month} className="bg-blue-50 rounded-lg px-3 py-1 font-semibold">{month}: <span className="text-blue-600">₹{amt.toFixed(2)}</span></li>
           ))}
         </ul>
       </div>
       <div className="mb-8">
-        <h3 className="text-lg font-bold mb-2 text-blue-700">Expenses by Description</h3>
+        <h3 className="text-lg font-bold mb-2 text-blue-700">Expenses by Category</h3>
         <ul className="grid grid-cols-2 md:grid-cols-4 gap-2 text-gray-700">
-          {Object.entries(analysis.byDescription).map(([desc, amt]) => (
-            <li key={desc} className="bg-pink-50 rounded-lg px-3 py-1 font-semibold">{desc}: <span className="text-pink-600">${amt.toFixed(2)}</span></li>
+          {Object.entries(analysis.byDescription).map(([cat, amt]) => (
+            <li key={cat} className="bg-pink-50 rounded-lg px-3 py-1 font-semibold">{cat}: <span className="text-pink-600">₹{amt.toFixed(2)}</span></li>
           ))}
+        </ul>
+      </div>
+      <div className="mb-8">
+        <h3 className="text-lg font-bold mb-2 text-blue-700">Top 3 Categories</h3>
+        <ul className="grid grid-cols-1 md:grid-cols-3 gap-2 text-gray-700">
+          {Object.entries(analysis.byDescription)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 3)
+            .map(([cat, amt]) => (
+              <li key={cat} className="bg-yellow-50 rounded-lg px-3 py-1 font-bold text-yellow-700">{cat}: ₹{amt.toFixed(2)}</li>
+            ))}
         </ul>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border-2 border-blue-200 rounded-2xl shadow-xl">
           <thead>
             <tr className="bg-gradient-to-r from-blue-100 via-pink-100 to-yellow-100">
-              <th className="py-3 px-4 border-b-2 border-blue-200 text-left font-bold text-blue-700 uppercase tracking-wider rounded-tl-2xl">Description</th>
+              <th className="py-3 px-4 border-b-2 border-blue-200 text-left font-bold text-blue-700 uppercase tracking-wider rounded-tl-2xl">Category</th>
               <th className="py-3 px-4 border-b-2 border-blue-200 text-right font-bold text-pink-700 uppercase tracking-wider">Amount</th>
               <th className="py-3 px-4 border-b-2 border-blue-200 text-center font-bold text-yellow-700 uppercase tracking-wider">Date</th>
             </tr>
@@ -105,7 +118,7 @@ export default function Display() {
               expenses.map(exp => (
                 <tr key={exp.id} className="hover:bg-yellow-100/60 transition-colors duration-200 group">
                   <td className="py-3 px-4 border-b border-blue-100 text-left group-hover:text-blue-700 font-medium">{exp.description}</td>
-                  <td className="py-3 px-4 border-b border-blue-100 text-right group-hover:text-pink-700 font-semibold">${parseFloat(exp.amount).toFixed(2)}</td>
+                  <td className="py-3 px-4 border-b border-blue-100 text-right group-hover:text-pink-700 font-semibold">₹{parseFloat(exp.amount).toFixed(2)}</td>
                   <td className="py-3 px-4 border-b border-blue-100 text-center group-hover:text-yellow-700 font-medium">{exp.date}</td>
                 </tr>
               ))

@@ -14,7 +14,7 @@ function AuthProvider({ children }) {
 			userService.authenticate(email, password);
 			localStorage.setItem("currentUser", email);
 			setIsAuth(true);
-			navigate('/dashboard/intro');
+			navigate('/dashboard/display');
 			Swal.fire({
 				title: "Success",
 				text: "Login is successful",

@@ -74,7 +74,7 @@ export default function Analysis() {
     labels: Object.keys(byMonth),
     datasets: [
       {
-        label: "Total by Month",
+        label: "Total by Month (₹)",
         data: Object.values(byMonth),
         backgroundColor: "#60a5fa",
       },
@@ -86,7 +86,7 @@ export default function Analysis() {
     labels: Object.keys(byDescription),
     datasets: [
       {
-        label: "By Description",
+        label: "By Description (₹)",
         data: Object.values(byDescription),
         backgroundColor: [
           "#f472b6",
@@ -105,7 +105,7 @@ export default function Analysis() {
     labels: Object.keys(byDay).sort(),
     datasets: [
       {
-        label: "Total by Day",
+        label: "Total by Day (₹)",
         data: Object.keys(byDay).sort().map(d => byDay[d]),
         borderColor: "#a78bfa",
         backgroundColor: "#ddd6fe",
@@ -157,6 +157,59 @@ export default function Analysis() {
         <Line data={lineData} options={{ responsive: true }} />
       </div>
       <div className="text-center text-gray-500 text-sm">Powered by Chart.js & react-chartjs-2</div>
+      <div className="mt-8 p-4 rounded-2xl bg-gray-50 shadow">
+        <h3 className="text-lg font-bold mb-4 text-gray-800">Summary Statistics</h3>
+        <ul className="space-y-2">
+          {filtered.length > 0 ? (
+            (() => {
+              const total = filtered.reduce((sum, exp) => sum + parseFloat(exp.amount || 0), 0);
+              const average = total / filtered.length;
+              const max = filtered.reduce((prev, current) => (parseFloat(current.amount) > parseFloat(prev.amount) ? current : prev), filtered[0]);
+              const min = filtered.reduce((prev, current) => (parseFloat(current.amount) < parseFloat(prev.amount) ? current : prev), filtered[0]);
+              
+              return (
+                <>
+                  <li>Total Expenses: <span className="font-bold text-blue-600">₹{total.toFixed(2)}</span></li>
+                  <li>Average Expense: <span className="font-bold text-pink-600">₹{average.toFixed(2)}</span></li>
+                  <li>Largest Expense: <span className="font-bold text-yellow-600">{max ? `${max.description} (₹${parseFloat(max.amount).toFixed(2)})` : '-'}</span></li>
+                  <li>Smallest Expense: <span className="font-bold text-emerald-600">{min ? `${min.description} (₹${parseFloat(min.amount).toFixed(2)})` : '-'}</span></li>
+                </>
+              );
+            })()
+          ) : (
+            <li className="text-gray-400">No expenses found for the selected filters.</li>
+          )}
+        </ul>
+      </div>
+      <div className="mt-8">
+        <h3 className="text-lg font-bold mb-4 text-gray-800">Detailed Expenses</h3>
+        <div className="overflow-x-auto rounded-2xl border border-gray-200">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Date</th>
+                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Category</th>
+                <th className="px-4 py-2 text-right text-sm font-semibold text-gray-700">Amount (₹)</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {filtered.length > 0 ? (
+                filtered.map((exp, idx) => (
+                  <tr key={idx} className="hover:bg-gray-50 transition-colors">
+                    <td className="py-3 px-4 text-left text-sm text-gray-600">{new Date(exp.date).toLocaleDateString()}</td>
+                    <td className="py-3 px-4 text-left text-sm text-gray-600">{exp.description}</td>
+                    <td className="py-3 px-4 border-b border-blue-100 text-right group-hover:text-pink-700 font-semibold">₹{parseFloat(exp.amount).toFixed(2)}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3" className="py-3 px-4 text-center text-sm text-gray-400">No expenses found for the selected filters.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
