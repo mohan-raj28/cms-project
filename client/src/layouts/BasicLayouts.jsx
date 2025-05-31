@@ -18,7 +18,7 @@ function BasicLayouts() {
                         to="/login"
                         className="bg-transparent text-white px-6 py-2 rounded-full border border-white/40 shadow font-semibold transition-all duration-200 hover:bg-white hover:text-emerald-700 hover:scale-105"
                     >
-                        Sign In
+                        Login
                     </Link>
                     <Link
                         to="/signup"
