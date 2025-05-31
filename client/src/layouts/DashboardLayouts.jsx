@@ -4,7 +4,7 @@ import AuthContext from "../context/AuthContext";
 
 const PATHS = [
     { path: '/dashboard/intro', text: 'Intro' },
-    { path: '/dashboard/expenses', text: '💸 Expenses' },
+    { path: '/dashboard/expenses', text: 'Add Expenses' },
     { path: '/dashboard/profile', text: 'Profile' },
 ];
 

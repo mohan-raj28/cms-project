@@ -45,9 +45,6 @@ export default function Expenses() {
 
   return (
     <div className="relative max-w-2xl mx-auto p-8 bg-gradient-to-br from-blue-50 via-pink-50 to-yellow-50 rounded-3xl shadow-2xl shadow-blue-200/40 mt-10 border-2 border-blue-200 animate-fade-in-up transition-all duration-200 hover:shadow-pink-200 hover:scale-[1.02] overflow-hidden">
-      {/* Cartoon background images */}
-      <img src="/exbg1.jpg" alt="Cartoon Plant" className="absolute left-0 bottom-0 w-32 opacity-30 pointer-events-none select-none" style={{zIndex:0}} />
-      <img src="/expense tracker.png" alt="Cartoon Wallet" className="absolute right-0 top-0 w-28 opacity-20 pointer-events-none select-none" style={{zIndex:0}} />
       <h2 className="relative z-10 text-3xl font-extrabold mb-8 text-center bg-gradient-to-r from-blue-500 via-pink-400 to-yellow-400 bg-clip-text text-transparent drop-shadow animate-gradient-x animate-pulse">
         Expense Tracker
       </h2>
