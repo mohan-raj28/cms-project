@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, Outlet, useLocation } from "react-router";
+import { Link, Outlet, useLocation, useNavigate } from "react-router";
 import AuthContext from "../context/AuthContext";
 
 const PATHS = [
@@ -22,6 +22,7 @@ const STYLE = {
 export default function DashboardLayouts() {
     const location = useLocation();
     const { logout } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     return (
         <div className="flex min-h-screen bg-gradient-to-tr from-white to-blue-50 text-gray-800">
@@ -45,6 +46,9 @@ export default function DashboardLayouts() {
                 <button
                     onClick={() => {
                         localStorage.removeItem("currentUser");
+                        setTimeout(() => {
+                            navigate("/");
+                        }, 0);
                         logout();
                     }}
                     className="mt-auto w-full py-2 px-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-medium shadow-md transition duration-300 hover:scale-[1.03] flex items-center justify-center gap-2"
